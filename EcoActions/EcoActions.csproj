@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net10.0-android;net10.0-ios</TargetFrameworks>
+    <RuntimeIdentifiers Condition="$(TargetFramework.Contains('-android'))">android-arm64;android-x64</RuntimeIdentifiers>
+    <RuntimeIdentifier Condition="$(TargetFramework.Contains('-ios')) and '$(BuildIpa)' == 'true'">ios-arm64</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="$(TargetFramework.Contains('-ios')) and '$(RuntimeIdentifier)' == ''">iossimulator-arm64</RuntimeIdentifier>
+    <NuGetLockFilePath Condition="'$(BuildIpa)' == 'true'">packages.ios-device.lock.json</NuGetLockFilePath>
+    <UseDefaultPublishRuntimeIdentifier>false</UseDefaultPublishRuntimeIdentifier>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>EcoActions</RootNamespace>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <ApplicationTitle>EcoActions</ApplicationTitle>
+    <ApplicationId>com.eddymarc.ecoactions</ApplicationId>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-android'))">26.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-ios'))">15.0</SupportedOSPlatformVersion>
+    <MauiVersion>10.0.110</MauiVersion>
+    <AndroidPackageFormats Condition="$(TargetFramework.Contains('-android'))">apk</AndroidPackageFormats>
+    <EmbedAssembliesIntoApk Condition="$(TargetFramework.Contains('-android'))">true</EmbedAssembliesIntoApk>
+  </PropertyGroup>
+  <ItemGroup>
+    <MauiIcon Include="Resources/AppIcon/appicon.svg" Color="#FFFFFF" />
+    <MauiSplashScreen Include="Resources/Splash/splash.svg" Color="#FFFFFF" BaseSize="128,128" />
+    <MauiImage Include="Resources/Images/asset_*" />
+    <MauiFont Include="Resources/Fonts/*.ttf" />
+    <MauiAsset Include="Resources/Raw/**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+    <MauiAsset Include="Resources/Fonts/Inter-LICENSE.txt" LogicalName="Inter-LICENSE.txt" />
+    <MauiAsset Include="Resources/Fonts/OpenSans-LICENSE.txt" LogicalName="OpenSans-LICENSE.txt" />
+    <MauiAsset Include="Resources/Fonts/OpenSans-NOTICE.txt" LogicalName="OpenSans-NOTICE.txt" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+    <ProjectReference Include="../EcoActions.Core/EcoActions.Core.csproj" />
+  </ItemGroup>
+</Project>
